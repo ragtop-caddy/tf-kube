@@ -7,6 +7,11 @@ terraform {
   }
 }
 
+variable "app_image" {
+  default = ""
+  description = "String identifying pull location for application image"
+}
+
 data "terraform_remote_state" "gke" {
   backend = "local"
 
@@ -42,5 +47,5 @@ provider "kubernetes" {
 
 module "pod" {
   source = "../kubernetes"
-  app_source = "us-central1-docker.pkg.dev/tughra-prj01/bntesting/crispy-clone:latest"
+  app_source = var.app_image
 }
